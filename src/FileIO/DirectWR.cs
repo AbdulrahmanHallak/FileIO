@@ -9,8 +9,13 @@ public class DirectWR
         var file = File.ReadLinesAsync(path);
         var builder = new StringBuilder();
         await foreach (var line in file)
-            builder.Append(line);
+        {
+            builder.AppendLine(line);
+            builder.Length -= Environment.NewLine.Length;
+        }
     }
+    public static Task<string> ReadText(string path) => File.ReadAllTextAsync(path);
+
     public static async Task WriteToFile(string path)
     {
         await File.WriteAllLinesAsync(path, ["hello world"]);
